@@ -77,6 +77,81 @@ Flux와 Mono는 서로 쉽게 변환할 수 있음
 - Flux<T>.collectionList() -> Mono<List<T>>를 반환
 - Mono<T>.flux() -> Flux<T>를 반환
 
+### 연산자를 이용해 리액티브 시퀀스 변환하기
+
+- 리액티브 시퀀스의 원소 매핑하기: map
+
+- 리액티브 시퀀스 필터링하기 : filter, ignoreElements, take, takeLast, takeUntil, elementAt, skip, takeUntilOther
+
+  ##### ignoreElements
+
+  - Mono<T> 반환하고 어떤 원소도 통과시키지 않는다. 
+  - 결과 시퀀스는 원본 시퀀스가 종료된 후에 종료 된다.
+
+![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/ignoreElementsForMono.svg)
+
+##### 	takeUntilOther, skipUntilOther
+
+- ​	특정 스트림에서 메세지가 도착할 때 까지 원소를 건너뛰거나 가져올 수 있다.
+
+![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/takeUntilOtherForMono.svg)
+
+- 리액티브 시퀀스 수집하기 : Flux.collectList(), Flux.collectSortedList(), collectMap,collectMultimap,collect,distinct,distinctUntilChanged
+
+  ##### collectMultimap
+
+  - Map<K, Collection<T>>로 변환
+
+![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/collectMultiMapWithKeyExtractor.svg)
+
+- 스트림의 원소 줄이기 : count, all, any, hasElement, hasElements, sort, reduce, scan, then, thenMany, thenEmpty
+
+  ##### then, thenMany, thenEmpty 
+
+  - 들어오는 원소를 무시하고 완료 또는 오류 신호만 보냄
+
+  - 상위 스트림이 완료될 때 동시에 완료됨
+
+  - 상위 스트림 처리가 완료되는 즉시 새 스트림을 기동하는데 유용
+
+    ![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/thenForFlux.svg)
+
+- 리액티브 스트림 조합하기 : concat, merge, zip combineLatest
+
+- 스트리 내의 원소 일괄 처리하기 
+
+  - List와 같은 컨테이너를 이용한 버퍼링
+
+  - Flux<Flux<T>>와 같은 형태로 스트림을 스트림하는 윈도우잉
+
+  - Flux<GroupFlux<K,T>> 유형의 스트림으로 그룹화
+
+  - flatMap
+
+  - concatMap
+
+  - flatMapSequential
+
+    ![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/flatMapSequentialWithConcurrency.svg)
+
+  - flatMapDelayError,flatMapSequentialDelayError,concatMapDelayError
+
+  - concatMapIterable
+
+- 샘플링하기 : sample, smapleTimeout
+
+- 리액티브 시퀀스를 블로킹 구조로 전환하기 : toIterable, toStream, blockFirst, blockLast
+- 시퀀스를 처리하는 동안 처리 내역 살펴보기 : doOnNext, doOnComplete, doOnSubscribe, doOnTerminate,doOnEach
+- 데이터와 시그널 변환하기 : materialize, dematerialize
+
+### 코드를 통해 스트림 만들기
+
+- push
+- create
+- generate
+
+- 일회성 리소스를 리액티브 스트림에 배치 : using, usingWhen
+
 ## 리액터 프로젝트의 고급 기능
 
 ## 리액터 프로젝트의 가장 중요한 구현 세부 정보
