@@ -531,7 +531,7 @@ public class ReactorEssentialsTest {
         Flux<Integer> source = Flux.range(0, 3)
             .doOnSubscribe(s ->
                 log.info("new subscription for the cold publisher"));
-
+        source.subscribe(s->{log.info("subscribe : {}",s );});
         ConnectableFlux<Integer> conn = source.publish();
 
         conn.subscribe(e -> log.info("[Subscriber 1] onNext: {}", e));
@@ -610,7 +610,7 @@ public class ReactorEssentialsTest {
             }
         };
 
-        Flux<String> publisher = Flux.just("1", "2")
+        Flux<String> publisher = Flux.just("1", "2","3")
             .compose(logUserInfo);
 
         publisher.subscribe();

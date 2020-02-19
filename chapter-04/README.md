@@ -149,8 +149,107 @@ Flux와 Mono는 서로 쉽게 변환할 수 있음
 - push
 - create
 - generate
-
 - 일회성 리소스를 리액티브 스트림에 배치 : using, usingWhen
+
+### 에러 처리하기
+
+> onError 시그널은 리액티브 스트림 스펙의 필수 요소
+
+- onError 시그널에 대한 핸들러를 정의하지 않으면 UnsupportedOperationException 발생
+
+- onError 발생하면 스트림 종료로 정의 -> 시그널 받으면 시퀀스 실행 중지
+
+- 이 시점에서 전략을 적용해 다른 방식으로 대응 가능
+
+  - onErrorReturn : 예외 발생시 지정한 값으로 대체
+
+  - onErrorResume : 예외를 catch하고 대체 워크플로를 실행
+
+  - onErrorMap : 예외를 catch하고 상황을 더 잘 나타내는 다른 예외로 변환
+
+  - retry : 오류 발생시 소스 리액티브 시퀀스를 다시 구독(무한대 가능)
+
+  - retryBackoff : 백오프 알고리즘 지원해 재시도할 때마다 대기 시간 증가
+
+    
+
+  - defaultIfEmpty : 빈 스트림 대신 기본값을 반환
+
+  - switchIfEmpty : 빈 스트림 대신 완전히 다른 리액티브 스트림을 반환
+
+  - timeout : 작업대기 시간을 제한하고 TimeoutException 발생
+
+### 배압다루기
+
+- #### onBackpressureBuffer
+
+  ![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/onBackpressureBuffer.svg)
+
+- #### onBackpressureDrop
+
+  ![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/onBackpressureDrop.svg)
+
+- #### onBackpressureLatest
+
+  ![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/onBackpressureLatest.svg)
+
+- #### onBackpressureError
+
+  ![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/onBackpressureError.svg)
+
+#### 배압 관리하는 또 다른 방법 : 속도 제한 기술
+
+- limitRate
+
+  ![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/limitRate.svg)
+
+- limitRequest
+
+  ![img](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/doc-files/marbles/limitRequest.svg)
+
+### Hot 스트림과 Cold 스트림
+
+콜드 퍼블리셔 : 구독자가 나타날때마다 모든 시퀀스 데이터가 생성되는 방식
+
+- 구독자 없이 데이터 생성 X
+
+핫 퍼블리셔 : 구독자 존재 여부에 의존 X -> 첫 구독자가 구독시작 전에 원소 만들어 냄 -> 이전에 생성된 값 보내지 않고 새로운  값만 보낼수 있음
+
+- 예시 : 데이터 방송 시나리오
+
+> 콜드 퍼블리셔 -> 핫 퍼블리셔 전환 가능
+
+##### Flux
+
+- publish
+- cache
+- share : 콜드 퍼블리셔 -> 핫 퍼블리셔로 변환, 구독자가 각 신규 구독자에게 이벤트를 전파하는 방식
+- transform : 서로 다른 위치에서 동일한 순서의 연산자를 사용할 때 활용 (=리액터의 composer 연산자)
+
+### 리액터 프로젝트 테스트 및 디버깅하기
+
+> Hooks.onOperatorDebug();
+
+- 조립할 모든 스트림에 대해 스택 트레이스를 수집하기 시작
+- 비용이 많이 듦
+
+> Flux,Mono 유형은 log 메서드 제공
+
+- 연산자를 통과하는 모든 신호를 기록
+
+### 리액터 추가 기능
+
+리액터 애드온 프로젝트(https://github.com/reactor/reactor-addons)
+
+- reactor-adapter : RxJava2 리액티브 타입 및 스케줄러에 대한 어댑터 제공
+- reactor-logback : 고속의 비동기 로깅 제공
+- ~~reactor-extra : 고급 기능을 위한 여러 추가 유틸리티~~
+
+Reactor RabbitMQ
+
+리액터 카프카 모듈
+
+리액터 네티
 
 ## 리액터 프로젝트의 고급 기능
 
