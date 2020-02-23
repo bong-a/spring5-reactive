@@ -11,3 +11,4 @@
 - Chapter 2. [스프링을 이용한 리액티브 프로그래밍 - 기본개념](./chapter-02/README.md)
 - Chapter 3. [스트림의 새로운 표준 - 리액티브 스트림](./chapter-03/README.md)
 - Chapter 4. [리액터 프로젝트 - 리액티브 앱의 기초](./chapter-04/README.md)
+- Chapter 5. [스프링 부트 2와 함께하는 리액티브](./chapter-05/README.md)

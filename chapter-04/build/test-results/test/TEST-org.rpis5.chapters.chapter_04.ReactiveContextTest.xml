@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.rpis5.chapters.chapter_04.ReactiveContextTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-02-22T12:30:23" hostname="DESKTOP-4MQC346" time="0.149">
+  <properties/>
+  <testcase name="showcaseContext" classname="org.rpis5.chapters.chapter_04.ReactiveContextTest" time="0.149"/>
+  <system-out><![CDATA[21:30:23.554 [Test worker] DEBUG reactor.util.Loggers$LoggerFactory - Using Slf4j logging framework
+top {
+  Context2{middle=context, top=context}
+}
+
+middle {
+  Context1{middle=context}
+}
+
+bottom {
+  Context0{}
+}
+
+initial {
+  Context0{}
+}
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

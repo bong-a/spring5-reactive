@@ -1,0 +1,19 @@
+e21:30:23.554 [Test worker] DEBUG reactor.util.Loggers$LoggerFactory - Using Slf4j logging framework
+top {
+)  Context2{middle=context, top=context}
+}
+
+
+middle {
+  Context1{middle=context}
+}
+
+
+bottom {
+  Context0{}
+}
+
+initial {
+  Context0{}
+}
+
